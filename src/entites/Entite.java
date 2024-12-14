@@ -1,5 +1,5 @@
 package entites;
-import map.Point;
+//import map.Point;
 
 public abstract class Entite {
 
@@ -12,7 +12,7 @@ public abstract class Entite {
     private double ATKSpeed;
     private int Range;
     private Element element;
-    private Point Position;
+    //private Point Position;
     private String Icone;
 
     // Constructeur de la classse Entite
@@ -64,13 +64,13 @@ public abstract class Entite {
         this.element = Element;
     }
 
-    public Point getPosition() {
+   /*public Point getPosition() {
         return Position;
     }
 
     public void setPosition(Point Position) {
         this.Position = Position;
-    }
+    }*/
 
     public String getIcone() {
         return Icone;
