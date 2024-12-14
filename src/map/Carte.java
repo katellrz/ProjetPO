@@ -1,0 +1,209 @@
+package map;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import logistic.FileExtraction;
+import outils.StdDraw;
+
+public class Carte {
+
+    private String nom;
+    private Case[][] MatriceCarte2D;
+    private int rows;
+    private int cols;
+
+
+    /**
+     * Constructeur de classe
+     * @param nom le nom de la carte (celui present sur le fichier)
+     */
+    public Carte(String nom){
+        this.nom=nom;
+        this.MatriceCarte2D = ConvertiCase();
+        this.rows = MatriceCarte2D.length;
+        this.cols = MatriceCarte2D[0].length;
+    }
+
+    public String GetNom(){
+        return nom;
+    }
+
+    public Case[][] GetCarte(){
+        return MatriceCarte2D;
+    }
+
+
+    /**
+     * Extrait une carte depuis un fichier de type .mtp et la convertit en une liste (Arrays list) de String, ou une String corespond a une ligne.
+     *
+     * @return Une List de String représentant les lignes de la carte.
+     * 
+     * Ici l'IA a été utilisé pour corriger le code qui ne fonctionait l'IA a sugeré de rajouter les viriable rows et cols 
+     */
+    public Case[][] ConvertiCase(){
+        String filePath="resources/maps/"+this.nom+".mtp";
+        List <String> tabStrings = FileExtraction.ExtraireFichier(filePath);//on utilise la fonction qui nous permet de lire la fonction précédente 
+        int rows = tabStrings.size();//compte le nombre de colone 
+        int cols = tabStrings.get(0).length();//compte le nombre de ligne 
+        Case[][] MatriceCarte = new Case[rows][cols];
+
+        for (int i =0; i<rows; i++) {//pour chaque ligne...
+            String ligne = tabStrings.get(i);//on extrait le string issue de la liste avec l'index i qui pemet de savoir ou on est rendu
+            for (int j=0;j<cols;j++){//pour chaque colone de chaque ligne 
+                MatriceCarte[i][j]=new Case(ligne.charAt(j),i,j, centerX(j), centerY(i));//...on ajoute une case (que l'on créé), a laquelle on ajoute un char qui nous pert d'obtinir le type et la couleur de la case
+            }
+        }
+        return MatriceCarte;//on return la matrice de Case
+    }
+
+    /**
+     * Determine la taille des case en fonction du nombre de case maximum sur un coté ou ou l'autre afin que la carte soit adapter au cadre
+     *
+     * @return La taille de la case qui correspond a la taille du cadre diviser au nombre de case.
+     * 
+     */
+    public int tailleCase(){
+        int a = 0;
+        if( MatriceCarte2D.length>=MatriceCarte2D[0].length){
+            a=MatriceCarte2D.length;
+        }else{
+            a=MatriceCarte2D[0].length;
+        }
+        return 700/a;
+    }
+
+    public int Startx(){
+        if(rows>cols){
+           return Math.abs(rows-cols)/2*tailleCase() + tailleCase()/2;
+        }else{
+            return tailleCase()/2;
+        }  
+    }
+
+    public int Starty(){
+        if(cols>rows){
+           return Math.abs(rows-cols)/2*tailleCase() + tailleCase()/2;
+        }else{
+            return tailleCase()/2;
+        }  
+    }
+
+    public int centerX(int j){
+         return Startx()+j*tailleCase();
+    }
+
+    public int centerY(int i){
+        return Starty()+(rows - 1 - i)*tailleCase();
+    }
+
+    /**
+     * Affiche la carte en appelant un fonction qui dessine chaque cas
+     * 
+     */
+    public void afficheCarte(){ 
+        while(true){//boucle infinie 
+            for (int i = 0; i<MatriceCarte2D.length;i++) {//pour chaque ligne 
+                for(int j = 0; j<MatriceCarte2D[0].length; j++){// pour chaque colone 
+                    MatriceCarte2D[i][j].afficheCase(centerX(i),centerY(j), tailleCase());
+                }
+            }
+            StdDraw.show();
+        }
+        
+    }
+
+    /**
+     * Cherche la case suivate a partitr d'un tableaux de case cette direction est chercher sur les case autour de la case actuelle sans prendre en compte le diagonale 
+     * @param current case actuelle dont on veux trouver la case suivante
+     * @param chemin liste des case deja visité (qui corrspondent au case du chamin déja construit )
+     * @return la case suivante a devoir être ajouté au chemin
+     * Cette fonction a été soumise a l'IA pour la structure et l'utilisation du tableau de direction qui ne fonctionait pas en raison d'une mauvais initialisation et utilisation par la suite 
+     *
+     */
+    private Case TrouveCaseSuivante(Case current, List<Case> chemin) {
+        int row = current.rows; // Coordonnées actuelles
+        int col = current.cols;
+    
+        // Directions possibles : Haut, Bas, Gauche, Droite
+        int[][] directions = {
+            {-1, 0}, {1, 0}, {0, -1}, {0, 1}
+        };
+    
+        for (int[] dir : directions) {
+            int newRow = row + dir[0];
+            int newCol = col + dir[1];
+    
+            // Vérifie si la case voisine est valide (pas forcement nécéssaire car les case sont entoure er de decor)
+            if (newRow >= 0 && newRow < MatriceCarte2D.length && newCol >= 0 && newCol < MatriceCarte2D[0].length) {
+                Case nextCase = MatriceCarte2D[newRow][newCol];
+                if ((!chemin.contains(nextCase)) && nextCase.getType() == Casetype.ROUTE||nextCase.getType() == Casetype.BASE ) {
+                    return nextCase; // Retourne la première case valide
+                }
+            }
+        }
+        return null; // Aucun voisin route ou base trouvé
+    }
+
+
+    public List<Case> ConstruitChemin(){
+        List<Case> chemin = new ArrayList<>();
+
+        Case start = Spawn();//Trouve la case depart
+
+        if (start == null) {    
+            System.out.println("Pas de case SPAW trouvée la carte n'est pas valide");
+            return chemin;
+        }
+
+        chemin.add(start);
+        return ConstruitCheminRecursive(start, chemin);
+    }
+
+    /**
+     * Fonction recursive qui construit le chemin petit a petit, 
+     * @return la liste chemin 
+     */
+    private List<Case> ConstruitCheminRecursive(Case current, List<Case> chemin) {
+        if(current.getType()==Casetype.BASE){
+            //System.out.println("Arrive la ");
+        
+            return chemin;
+        }else{
+            //System.out.println("Arrive la ");
+            Case nextCase = TrouveCaseSuivante(current, chemin);
+            if (nextCase != null) {
+                //System.out.println("Arrive la vrl");
+                chemin.add(nextCase);
+                return ConstruitCheminRecursive(nextCase, chemin);
+            }else{
+                return null;
+            }
+        }
+    }
+    
+    /**
+     * Trouve le spawn de la map et le return 
+     * Cette fonction e été soumise a chat GPT pour la solifier( géré les cas ou )
+     * @return une case de type Spawn
+     */
+    public Case Spawn() {
+        if (MatriceCarte2D == null) {
+            System.out.println("MatriceCarte2D est null");
+            return null;
+        }
+    
+        for (int i = 0; i < MatriceCarte2D.length; i++) {
+            if (MatriceCarte2D[i] == null) continue; // Vérifiez si la ligne est null
+    
+            for (int j = 0; j < MatriceCarte2D[i].length; j++) {
+                if (MatriceCarte2D[i][j] != null && MatriceCarte2D[i][j].getType() == Casetype.SPAWN) {
+                    //System.out.println("trouvé");
+                    return MatriceCarte2D[i][j];
+                }
+            }
+        }
+        //System.out.println("null");
+        return null;
+    }
+}
