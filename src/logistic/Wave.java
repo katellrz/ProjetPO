@@ -1,5 +1,7 @@
 package logistic;
 
+import static outils.Omnicient.*;
+
 import java.time.Duration;
 import java.time.LocalDateTime;
 import java.util.List;
@@ -14,6 +16,7 @@ import entites.enemies.FireGrognard;
 import entites.enemies.Minion;
 import entites.enemies.WaterBrute;
 import entites.enemies.WindGrognard;
+
 
 public class Wave {
 
@@ -69,7 +72,8 @@ public class Wave {
         while(true){
             Long a = calculerDifferenceEnMillisecondes(T0);
             if(vague.get(a)!=null){
-                creeEnemi(vague.get(a));
+                Enemi e = creeEnemi(vague.get(a));
+                SavetoOmni(e);
             }
 
         }

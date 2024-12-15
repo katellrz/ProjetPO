@@ -1,8 +1,12 @@
 package logistic;
 
+import static outils.Omnicient.SavetoOmni;
+
 import java.awt.Color;
+import java.util.List;
 
 import map.Carte;
+import map.Case;
 import map.Point;
 import outils.StdDraw;
 public class InterfaceJoueur{
@@ -18,19 +22,33 @@ public class InterfaceJoueur{
         StdDraw.setYscale(-10, 710);
         StdDraw.enableDoubleBuffering();
 
+        System.out.println("Arrive la 7");
+
         ZoneMap();
+        System.out.println("Arrive la 8");
         ZoneLevel();
+        System.out.println("Arrive la 9");
         ZonePlayer();
+        System.out.println("Arrive la 10");
         ZoneBoutique();
-
-        
-
-        Carte c1 = new Carte("10-10");
-        c1.afficheCarte();;
+        System.out.println("Arrive la 11");
 
         StdDraw.show();
+       
+    }
+    
+    public void AfficheDynamique(){
+        Carte c1 = new Carte("10-10");
 
+        List<Case> huhu = c1.getChemin();
+        SavetoOmni(huhu);
         
+        System.out.println("Arrive la 12");
+        c1.afficheCarte();;
+        System.out.println("Arrive la 13");
+
+        StdDraw.show() ;
+        System.out.println("Arrive la 14");
     }
 
     public static void ZoneMap(){

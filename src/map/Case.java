@@ -11,8 +11,7 @@ public class Case {
     protected Color couleur;
     protected int rows;
     protected int cols;
-    protected int centerX;
-    protected int centerY;
+    protected Point centre;
 
 
     public Case(char c, int rows, int cols,int centerX,int centerY){
@@ -20,8 +19,7 @@ public class Case {
         this.couleur = SetCouleur(c);
         this.rows = rows;
         this.cols = cols;
-        this.centerX=centerX;
-        this.centerY=centerY;
+        this.centre= new Point(centerX, centerY);
     }
     
 
@@ -67,6 +65,17 @@ public class Case {
         return cols;
     }
 
+    
+
+    public int getCenterX() {
+        return centre.getX();
+    }
+
+    public int getCenterY() {
+        return centre.getY();
+    }
+
+
 
     public Color SetCouleur(char casetype){
         switch (casetype) {
@@ -92,9 +101,9 @@ public class Case {
     }
 
 
-    public void afficheCase(double CentreX, double CentreY, double size){
+    public void afficheCase(double size){
 
-        boolean Sourissurvole = Sourissurvole(CentreX, CentreY, size);
+        boolean Sourissurvole = Sourissurvole(this.centre.getX(), this.centre.getY(), size);
 
 
         Color couleur = this.couleur;//couleur de base 
@@ -102,7 +111,7 @@ public class Case {
         if(Sourissurvole&&SourisClique()) couleur = Color.YELLOW;//Si la case est cliquer
         //dessin de la case
         StdDraw.setPenColor(couleur);
-        StdDraw.filledSquare(CentreX, CentreY, size / 2.0);
+        StdDraw.filledSquare(this.centre.getX(), this.centre.getY(), size / 2.0);
 
         
 
@@ -110,7 +119,7 @@ public class Case {
         if(Sourissurvole) couleur = Color.YELLOW;
         else couleur = Color.BLACK;
         StdDraw.setPenColor(couleur);
-        StdDraw.square(CentreX, CentreY, size / 2.0);
+        StdDraw.square(this.centre.getX(), this.centre.getY(), size / 2.0);
     }
 
 

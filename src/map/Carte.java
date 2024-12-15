@@ -1,5 +1,7 @@
 package map;
 
+import static outils.Omnicient.*;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -10,8 +12,11 @@ public class Carte {
 
     private String nom;
     private Case[][] MatriceCarte2D;
-    private int rows;
-    private int cols;
+    // private int rows;
+    // private int cols;
+    private int tailleCase;
+    private List<Case> Chemin;
+
 
 
     /**
@@ -21,8 +26,16 @@ public class Carte {
     public Carte(String nom){
         this.nom=nom;
         this.MatriceCarte2D = ConvertiCase();
-        this.rows = MatriceCarte2D.length;
-        this.cols = MatriceCarte2D[0].length;
+        if (this.MatriceCarte2D == null){
+            System.out.println("Construteur , matrice carte null");
+        }
+        // this.rows = MatriceCarte2D.length;
+        // this.cols = MatriceCarte2D[0].length;
+        this.Chemin = ConstruitChemin();
+    }
+
+    public List<Case> getChemin(){
+        return Chemin;
     }
 
     public String GetNom(){
@@ -31,6 +44,14 @@ public class Carte {
 
     public Case[][] GetCarte(){
         return MatriceCarte2D;
+    }
+
+    public void SetTailleCase(int tailleCase){
+        this.tailleCase = tailleCase;
+    }
+
+    public int getTailleCase(){
+        return this.tailleCase;
     }
 
 
@@ -44,72 +65,61 @@ public class Carte {
     public Case[][] ConvertiCase(){
         String filePath="resources/maps/"+this.nom+".mtp";
         List <String> tabStrings = FileExtraction.ExtraireFichier(filePath);//on utilise la fonction qui nous permet de lire la fonction précédente 
-        int rows = tabStrings.size();//compte le nombre de colone 
-        int cols = tabStrings.get(0).length();//compte le nombre de ligne 
+        
+        if (tabStrings == null || tabStrings.isEmpty()) {//verification et Debug
+            System.out.println("Erreur: fichier de carte introuvable ou vide.");
+            return null;
+        }
+
+
+        int rows = tabStrings.size();//compte le nombre de Ligne 
+        int cols = tabStrings.get(0).length();//compte le nombre de Colone 
+
+        //calcul des dimention globale pour centrer la carte 
+        int tailleCase = 700 / Math.max(rows, cols);
+        this.SetTailleCase(tailleCase);//on initialise la taille de chaque case 
+        int startX = (cols > rows) ? (Math.abs(cols - rows) / 2) * tailleCase : 0;
+        int startY = (rows > cols) ? (Math.abs(rows - cols) / 2) * tailleCase : 0;
+
+
         Case[][] MatriceCarte = new Case[rows][cols];
 
-        for (int i =0; i<rows; i++) {//pour chaque ligne...
-            String ligne = tabStrings.get(i);//on extrait le string issue de la liste avec l'index i qui pemet de savoir ou on est rendu
-            for (int j=0;j<cols;j++){//pour chaque colone de chaque ligne 
-                MatriceCarte[i][j]=new Case(ligne.charAt(j),i,j, centerX(j), centerY(i));//...on ajoute une case (que l'on créé), a laquelle on ajoute un char qui nous pert d'obtinir le type et la couleur de la case
+        try {//ajout d'un try catch en debug 
+            for (int i = 0; i < rows; i++) {
+                String ligne = tabStrings.get(i);
+                for (int j = 0; j < cols; j++) {
+                    //calcul des coordonnée pour avoir le cenrte de chaque case 
+                    int centerX = startX + j * tailleCase + tailleCase / 2;
+                    int centerY = startY + (rows - 1 - i) * tailleCase + tailleCase / 2;
+
+                    MatriceCarte[i][j] = new Case(ligne.charAt(j), i, j, centerX, centerY);
+                }
             }
-        }
-        return MatriceCarte;//on return la matrice de Case
-    }
+        } catch (Exception e) {
+            System.out.println("Erreur lors de la conversion des cases: " + e.getMessage());
+            e.printStackTrace();
+            return null;
+        } 
+        return MatriceCarte;
+    }//on return la matrice de Case
+    
 
-    /**
-     * Determine la taille des case en fonction du nombre de case maximum sur un coté ou ou l'autre afin que la carte soit adapter au cadre
-     *
-     * @return La taille de la case qui correspond a la taille du cadre diviser au nombre de case.
-     * 
-     */
-    public int tailleCase(){
-        int a = 0;
-        if( MatriceCarte2D.length>=MatriceCarte2D[0].length){
-            a=MatriceCarte2D.length;
-        }else{
-            a=MatriceCarte2D[0].length;
-        }
-        return 700/a;
-    }
+       
 
-    public int Startx(){
-        if(rows>cols){
-           return Math.abs(rows-cols)/2*tailleCase() + tailleCase()/2;
-        }else{
-            return tailleCase()/2;
-        }  
-    }
-
-    public int Starty(){
-        if(cols>rows){
-           return Math.abs(rows-cols)/2*tailleCase() + tailleCase()/2;
-        }else{
-            return tailleCase()/2;
-        }  
-    }
-
-    public int centerX(int j){
-         return Startx()+j*tailleCase();
-    }
-
-    public int centerY(int i){
-        return Starty()+(rows - 1 - i)*tailleCase();
-    }
 
     /**
      * Affiche la carte en appelant un fonction qui dessine chaque cas
      * 
      */
     public void afficheCarte(){ 
-        while(true){//boucle infinie 
-            for (int i = 0; i<MatriceCarte2D.length;i++) {//pour chaque ligne 
-                for(int j = 0; j<MatriceCarte2D[0].length; j++){// pour chaque colone 
-                    MatriceCarte2D[i][j].afficheCase(centerX(i),centerY(j), tailleCase());
-                }
+        System.out.println("Arrive la 16");
+        for (int i = 0; i<MatriceCarte2D.length;i++) {//pour chaque ligne 
+            for(int j = 0; j<MatriceCarte2D[0].length; j++){// pour chaque colone 
+                MatriceCarte2D[i][j].afficheCase(this.tailleCase);
             }
-            StdDraw.show();
         }
+        System.out.println("Arrive la 17");
+
         
     }
 
@@ -150,6 +160,7 @@ public class Carte {
         List<Case> chemin = new ArrayList<>();
 
         Case start = Spawn();//Trouve la case depart
+        SavetoOmniSpawn(start);
 
         if (start == null) {    
             System.out.println("Pas de case SPAW trouvée la carte n'est pas valide");
@@ -167,7 +178,7 @@ public class Carte {
     private List<Case> ConstruitCheminRecursive(Case current, List<Case> chemin) {
         if(current.getType()==Casetype.BASE){
             //System.out.println("Arrive la ");
-        
+            SavetoOmniBase(current);
             return chemin;
         }else{
             //System.out.println("Arrive la ");

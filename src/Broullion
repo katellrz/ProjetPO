@@ -1,0 +1,36 @@
+public Case[][] ConvertiCase() {
+    String filePath = "resources/maps/" + this.nom + ".mtp";
+    List<String> tabStrings = FileExtraction.ExtraireFichier(filePath);
+
+    if (tabStrings == null || tabStrings.isEmpty()) { // Vérification et debug
+        System.out.println("Erreur: fichier de carte introuvable ou vide.");
+        return null;
+    }
+
+    // Nombre de lignes et de colonnes
+    int rows = tabStrings.size();
+    int cols = tabStrings.get(0).length();
+
+    // Calcul des dimensions globales pour centrer la carte
+    int tailleCase = 700 / Math.max(rows, cols);
+    int startX = (cols > rows) ? (Math.abs(cols - rows) / 2) * tailleCase : 0;
+    int startY = (rows > cols) ? (Math.abs(rows - cols) / 2) * tailleCase : 0;
+
+    Case[][] MatriceCarte = new Case[rows][cols];
+
+    try {
+        for (int i = 0; i < rows; i++) {
+            String ligne = tabStrings.get(i);
+            for (int j = 0; j < cols; j++) {
+                // Calcul direct des coordonnées (centerX et centerY) sans dépendre de MatriceCarte2D
+                int centerX = startX + j * tailleCase + tailleCase / 2;
+                int centerY = startY + (rows - 1 - i) * tailleCase + tailleCase / 2;
+
+                MatriceCarte[i][j] = new Case(ligne.charAt(j), i, j, centerX, centerY);
+            }
+        }
+    } catch (Exception e) {
+        System.out.println("Erreur lors de la conversion des cases: " + e.getMessage());
+        e.printStackTrace();
+        return null;
+   
