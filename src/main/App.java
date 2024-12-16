@@ -39,8 +39,11 @@ public class App {
             // Efface l'écran avant de redessiner
             StdDraw.clear();
 
+            System.out.println("Position avant déplacement"+ monstre.getPosition().toString());
             // Déplace le monstre
             monstre.avance();
+
+            System.out.println("Position apres déplacement"+ monstre.getPosition().toString());
 
             i1.AfficheDynamique ();
 

@@ -67,11 +67,11 @@ public class Case {
 
     
 
-    public int getCenterX() {
+    public double getCenterX() {
         return centre.getX();
     }
 
-    public int getCenterY() {
+    public double getCenterY() {
         return centre.getY();
     }
 
@@ -137,7 +137,7 @@ public class Case {
 
     @Override
     public String toString() {
-        return "Case [type=" + type + ", couleur=" + couleur + ", rows=" + rows + ", cols=" + cols + "]";
+        return "Case [type=" + type + ", couleur=" + couleur + ", rows=" + rows + ", cols=" + cols + " position "+centre.toString()+"]";
     }
 
     

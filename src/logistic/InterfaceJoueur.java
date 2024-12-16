@@ -42,6 +42,10 @@ public class InterfaceJoueur{
 
         List<Case> huhu = c1.getChemin();
         SavetoOmni(huhu);
+
+        /* for (Case c : huhu) {
+            System.out.println("Case : "+ c.toString());
+        } */
         
         System.out.println("Arrive la 12");
         c1.afficheCarte();;
