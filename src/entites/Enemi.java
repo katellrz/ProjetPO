@@ -61,7 +61,11 @@ public class Enemi extends Entite {
 
         // Position centrale de la prochaine case
         Case nextCase = path.get(currentIndex + 1);
-        Point target = new Point(nextCase.getCenterX(), nextCase.getCenterY()); // Position cible (centre de la case)
+        Point target = new Point(nextCase.getCenterX(), nextCase.getCenterY());// Position cible (centre de la case)
+
+        System.out.println("cible = "+target.toString());
+
+
 
         // Calcul du vecteur de déplacement
         double dx = target.getX() - position.getX();
@@ -83,7 +87,9 @@ public class Enemi extends Entite {
     public void apparait(){
         
         StdDraw.setPenColor(Color.BLACK);
-        StdDraw.circle(position.getX(), position.getY(), 20);
+        StdDraw.filledCircle(position.getX(), position.getY(), 20);
+
+        System.out.println("Départ :  "+position.getX()+ position.getY());
 
         System.out.println("Arrive la 18");
         StdDraw.show();

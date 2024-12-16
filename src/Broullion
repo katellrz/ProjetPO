@@ -1,36 +1,94 @@
-public Case[][] ConvertiCase() {
-    String filePath = "resources/maps/" + this.nom + ".mtp";
-    List<String> tabStrings = FileExtraction.ExtraireFichier(filePath);
+package entites;
 
-    if (tabStrings == null || tabStrings.isEmpty()) { // Vérification et debug
-        System.out.println("Erreur: fichier de carte introuvable ou vide.");
-        return null;
+import map.Case;
+import map.Point;
+import outils.StdDraw;
+
+import static outils.Omnicient.*;
+
+import java.awt.Color;
+import java.util.List;
+
+public class Enemi extends Entite {
+    private double Speed;
+    private int Reward;
+    private Point position;
+    public int currentIndex;
+
+    // Constructeur de la classe Enemi
+    public Enemi(int PV, int ATK, double ATKSpeed, int Range, Element Element, double Speed, int Reward, Point position) {
+        super(PV, ATK, ATKSpeed, Range, Element);
+        this.Speed = Speed;
+        this.Reward = Reward;
+        this.position= position;
+        this.currentIndex = 0;
     }
 
-    // Nombre de lignes et de colonnes
-    int rows = tabStrings.size();
-    int cols = tabStrings.get(0).length();
+    // Getters et setters
+    public double getSpeed() {
+        return Speed;
+    }
 
-    // Calcul des dimensions globales pour centrer la carte
-    int tailleCase = 700 / Math.max(rows, cols);
-    int startX = (cols > rows) ? (Math.abs(cols - rows) / 2) * tailleCase : 0;
-    int startY = (rows > cols) ? (Math.abs(rows - cols) / 2) * tailleCase : 0;
+    public void setSpeed(int Speed) {
+        this.Speed = Speed;
+    }
 
-    Case[][] MatriceCarte = new Case[rows][cols];
+    public int getReward() {
+        return Reward;
+    }
 
-    try {
-        for (int i = 0; i < rows; i++) {
-            String ligne = tabStrings.get(i);
-            for (int j = 0; j < cols; j++) {
-                // Calcul direct des coordonnées (centerX et centerY) sans dépendre de MatriceCarte2D
-                int centerX = startX + j * tailleCase + tailleCase / 2;
-                int centerY = startY + (rows - 1 - i) * tailleCase + tailleCase / 2;
+    public void setReward(int Reward) {
+        this.Reward = Reward;
+    }
 
-                MatriceCarte[i][j] = new Case(ligne.charAt(j), i, j, centerX, centerY);
-            }
+    
+    public void setPosition(Point position) {
+        this.position = position;
+    }
+
+    public Point getPosition() {
+        return position;
+    }
+
+    public void avance(){
+
+        List<Case>path = getChemin();
+
+        if (currentIndex >= path.size() - 1) { // Le monstre a atteint la fin du chemin
+            System.out.println("Le monstre est arrivé à la base !");
+            return;
         }
-    } catch (Exception e) {
-        System.out.println("Erreur lors de la conversion des cases: " + e.getMessage());
-        e.printStackTrace();
-        return null;
-   
+
+        // Position centrale de la prochaine case
+        Case nextCase = path.get(currentIndex + 1);
+        Point target = new Point(nextCase.getCenterX(), nextCase.getCenterY()); // Position cible (centre de la case)
+
+        // Calcul du vecteur de déplacement
+        double dx = target.getX() - position.getX();
+        double dy = target.getY() - position.getY();
+        double distance = Math.sqrt(dx * dx + dy * dy);
+
+        // Si le monstre atteint la prochaine case
+        if (distance <=Speed) {
+            position.setX(target.getX());
+            position.setY(target.getY());
+            currentIndex++; // Passe à la prochaine case
+        } else {
+            // Déplace le monstre proportionnellement à sa vitesse
+            position.setX((int)(position.getX() + dx / distance * Speed));
+            position.setY((int)(position.getY() + dy / distance * Speed));
+        }
+    }
+
+    public void apparait(){
+        
+        StdDraw.setPenColor(Color.BLACK);
+        StdDraw.filledCircle(position.getX(), position.getY(), 20);
+
+        System.out.println("Arrive la 18");
+        StdDraw.show();
+        
+    }
+
+    
+}
