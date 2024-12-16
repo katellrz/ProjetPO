@@ -112,15 +112,11 @@ public class Carte {
      * 
      */
     public void afficheCarte(){ 
-        System.out.println("Arrive la 16");
         for (int i = 0; i<MatriceCarte2D.length;i++) {//pour chaque ligne 
             for(int j = 0; j<MatriceCarte2D[0].length; j++){// pour chaque colone 
                 MatriceCarte2D[i][j].afficheCase(this.tailleCase);
             }
-        }
-        System.out.println("Arrive la 17");
-
-        
+        }       
     }
 
     /**

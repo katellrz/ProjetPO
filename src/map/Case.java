@@ -21,8 +21,45 @@ public class Case {
         this.cols = cols;
         this.centre= new Point(centerX, centerY);
     }
+
+    public Casetype getType() {
+        return type;
+    }
+
+
+    public Color getCouleur() {
+        return couleur;
+    }
+
+    
+    public int getRows() {
+        return rows;
+    }
+
+
+    public int getCols() {
+        return cols;
+    }
+
+    
+    public double getCenterX() {
+        return centre.getX();
+    }
+
+    public double getCenterY() {
+        return centre.getY();
+    }
+
+    public Point getCenterCase(){
+        return this.centre;
+    }
     
 
+    /**
+     * Cette fontion permet de determiner le type de la case selon la lettrer noté sur le document ressource de ap
+     * @param casetype correspond a la lettre lu par les fonction précédentes 
+     * @return un parmatre de type Casetype, ce type est definis dans un énum 
+     */
     public Casetype TypedeCase(char casetype){
         switch (casetype) {
             case 'S' :
@@ -45,38 +82,11 @@ public class Case {
         }
     }
 
-
-    public Casetype getType() {
-        return type;
-    }
-
-
-    public Color getCouleur() {
-        return couleur;
-    }
-
-    
-    public int getRows() {
-        return rows;
-    }
-
-
-    public int getCols() {
-        return cols;
-    }
-
-    
-
-    public double getCenterX() {
-        return centre.getX();
-    }
-
-    public double getCenterY() {
-        return centre.getY();
-    }
-
-
-
+    /**
+     * Cette fontion permet de determiner la couleur de la case selon la lettre noté sur le document ressource de map
+     * @param casetype correspond a la lettre lu par les fonction précédentes 
+     * @return un parmatre de type Color 
+     */
     public Color SetCouleur(char casetype){
         switch (casetype) {
             case 'S' :
@@ -100,7 +110,11 @@ public class Case {
         }
     }
 
-
+    /**
+     * Cette fontion permet d'afficher chaque case indépendament 
+     * @param size correspond a 
+     * @return un parmatre de type Color 
+     */
     public void afficheCase(double size){
 
         boolean Sourissurvole = Sourissurvole(this.centre.getX(), this.centre.getY(), size);

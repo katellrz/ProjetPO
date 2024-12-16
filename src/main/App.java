@@ -26,8 +26,7 @@ public class App {
 
 
         // Initialise un monstre
-        Point startPosition = new Point(getChemin().get(0).getCenterX(), getChemin().get(0).getCenterX());
-        Enemi monstre = new Enemi(12, 3, 1, 0, null, 1, 0, startPosition);
+        Enemi monstre = new Enemi(12, 3, 1, 0, null, 6, 0);
        
         System.out.println("Arrive la 2");
 

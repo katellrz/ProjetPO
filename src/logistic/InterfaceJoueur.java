@@ -22,23 +22,32 @@ public class InterfaceJoueur{
         StdDraw.setYscale(-10, 710);
         StdDraw.enableDoubleBuffering();
 
-        System.out.println("Arrive la 7");
+        
 
         ZoneMap();
-        System.out.println("Arrive la 8");
+        
         ZoneLevel();
-        System.out.println("Arrive la 9");
+        
         ZonePlayer();
-        System.out.println("Arrive la 10");
+        
         ZoneBoutique();
-        System.out.println("Arrive la 11");
+        
 
         StdDraw.show();
        
     }
     
     public void AfficheDynamique(){
-        Carte c1 = new Carte("10-10");
+
+        ZoneMap();
+        
+        ZoneLevel();
+        
+        ZonePlayer();
+        
+        ZoneBoutique();
+
+        Carte c1 = new Carte("10-3");
 
         List<Case> huhu = c1.getChemin();
         SavetoOmni(huhu);
@@ -47,12 +56,12 @@ public class InterfaceJoueur{
             System.out.println("Case : "+ c.toString());
         } */
         
-        System.out.println("Arrive la 12");
+        
         c1.afficheCarte();;
-        System.out.println("Arrive la 13");
+        
 
         StdDraw.show() ;
-        System.out.println("Arrive la 14");
+    
     }
 
     public static void ZoneMap(){

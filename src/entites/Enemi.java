@@ -16,11 +16,11 @@ public class Enemi extends Entite {
     public int currentIndex;
 
     // Constructeur de la classe Enemi
-    public Enemi(int PV, int ATK, double ATKSpeed, int Range, Element Element, double Speed, int Reward, Point position) {
+    public Enemi(int PV, int ATK, double ATKSpeed, int Range, Element Element, double Speed, int Reward) {
         super(PV, ATK, ATKSpeed, Range, Element);
         this.Speed = Speed;
         this.Reward = Reward;
-        this.position= position;
+        this.position= getChemin().get(0).getCenterCase();
         this.currentIndex = 0;
     }
 

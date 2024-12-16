@@ -7,8 +7,8 @@ public class WindGrognard extends Enemi {
     private int resistanceAuVent;
 
     
-    public WindGrognard(int PV, int ATK, int ATKSpeed, int Range, Element Element, int Speed, int Reward, Point position) {
-        super(PV, ATK, ATKSpeed, Range, Element, Speed, Reward,position);
+    public WindGrognard(int PV, int ATK, int ATKSpeed, int Range, Element Element, int Speed, int Reward) {
+        super(PV, ATK, ATKSpeed, Range, Element, Speed, Reward);
     }
 
     public int getResistanceAuVent() {
