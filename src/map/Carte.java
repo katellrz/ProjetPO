@@ -15,6 +15,7 @@ public class Carte {
     // private int rows;
     // private int cols;
     private int tailleCase;
+    
     private List<Case> Chemin;
 
 

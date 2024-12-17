@@ -1,5 +1,6 @@
 package logistic;
 
+import static outils.Omnicient.SaveToOmni;
 import static outils.Omnicient.SavetoOmni;
 
 import java.awt.Color;
@@ -37,6 +38,7 @@ public class InterfaceJoueur{
         ZoneBoutique();
 
         Carte c1 = new Carte("10-10");
+        SaveToOmni(c1.GetCarte());
 
         List<Case> huhu = c1.getChemin();
         SavetoOmni(huhu);        

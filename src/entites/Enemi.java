@@ -73,18 +73,12 @@ public class Enemi extends Entite {
         Case nextCase = path.get(currentIndex + 1);
         Point target = new Point(nextCase.getCenterX(), nextCase.getCenterY());// Position cible (centre de la case)
 
-        System.out.println("cible = "+ target);
-        System.out.println("Position actuelle = " + position);
-
-
-
+        
         // Calcul du vecteur de déplacement
         double dx = target.getX() - position.getX();
         double dy = target.getY() - position.getY();
 
         double distance = Math.sqrt(dx * dx + dy * dy);
-
-        System.out.println("dx = " + dx + ", dy = " + dy + ", distance = " + distance + ", Speed = " + Speed);
 
         
         if (distance <= Speed) {
@@ -92,13 +86,11 @@ public class Enemi extends Entite {
             position.setX(target.getX());
             position.setY(target.getY());
             currentIndex++; // Passe à la prochaine case
-            System.out.println("Atteint la cible. Nouvel index : " + currentIndex);
         } else {
             // déplace le monstre en fonction  à sa vitesse
             double ratio = Speed / distance; // Proportion du déplacement
             this.setX(position.getX() + dx * ratio);
             this.setY(position.getY() + dy * ratio);
-            System.out.println("Déplacement intermédiaire. Nouvelle position : (" + position.getX() + ", " + position.getY() + ")");
         }
     }
 
@@ -106,10 +98,6 @@ public class Enemi extends Entite {
         
         StdDraw.setPenColor(Color.BLACK);
         StdDraw.filledCircle(position.getX(), position.getY(), 20);
-
-        System.out.println("Départ :  "+position.getX()+ position.getY());
-
-        System.out.println("Arrive la 18");
         StdDraw.show();
         
     }

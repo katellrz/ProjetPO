@@ -4,16 +4,17 @@ import map.Case;
 import java.util.LinkedList;
 import java.util.List;
 import entites.Enemi;
-import entites.Tours;
+import entites.Tour;
 
 public abstract class Omnicient {
 
     private static List<Enemi> positionMonstre = new LinkedList<>();
-    private static List<Tours> positionTours = new LinkedList<>();
+    private static List<Tour> positionTours = new LinkedList<>();
     private static Case Spawn;
     private static Case Base;
     private static List<Case> Chemin;
     private static Case[][] Carte;
+    public static int Size;
      
 
     
@@ -29,7 +30,7 @@ public abstract class Omnicient {
         positionMonstre.add(e);
     }
 
-    public static void SavetoOmni(Tours e) {
+    public static void SavetoOmni(Tour e) {
         positionTours.add(e);
     }
 
@@ -40,13 +41,20 @@ public abstract class Omnicient {
     public static void SavetoOmniSpawn(Case spawn) {
         Spawn = spawn;
     }
+    
+    public static void SaveToOmni(int size){
+        Size=size;
+    }
 
+    public static int getSize(){
+        return Size;
+    }
     
     public static List<Enemi> getPositionMonstre() {
         return positionMonstre;
     }
 
-    public static List<Tours> getPositionTours() {
+    public static List<Tour> getPositionTours() {
         return positionTours;
     }
 
@@ -66,7 +74,7 @@ public abstract class Omnicient {
         return Carte;
     }
 
-    public static void AddTour(Tours tour){
+    public static void AddTour(Tour tour){
         positionTours.add(tour);
     }
 

@@ -1,6 +1,12 @@
 package main;
+import static outils.Omnicient.*;
+
 import entites.Enemi;
+import entites.Entite.Element;
+import entites.Tour;
+import entites.Tours.Archer;
 import logistic.InterfaceJoueur;
+import map.Case;
 import outils.StdDraw;
 
 public class App {
@@ -17,7 +23,8 @@ public class App {
 
         // Initialise un monstre
         Enemi monstre = new Enemi(12, 3, 1, 0, null, 6, 0);
-        Enemi monstre2 =  new Enemi(12, 3, 1, 0, null, 2, 0);
+        AddEnemi(monstre);
+
                
 
         // Animation du déplacement
@@ -26,16 +33,33 @@ public class App {
             // Efface l'écran avant de redessiner
             StdDraw.clear();
 
+            i1.AfficheDynamique ();
             
             // Déplace le monstre
-            monstre.avance();
-            monstre2.avance();
+            for (Enemi m : getPositionMonstre()) {
+                m.avance();
+                m.apparait();
+            }
 
-            i1.AfficheDynamique ();
+            for (Case[] c : getCarte()) {
+                for (Case cs : c) {
+                    if(cs.SourisClique()){
+                        Archer t = new Archer(12,1,1,1,Element.NONE,30,cs.getCenterCase());
+                        AddTour(t);
+                        System.out.println("Tour créé et ajouter, Position = "+cs.getCenterCase().toString());
+
+                    }                
+                }
+            }
+            
+        
+
+            for (Tour t : getPositionTours()) {
+                System.out.println("affiche tour ");
+                t.afficheTour(getSize());
+            }
 
             // Dessine le monstre
-            monstre.apparait();
-            monstre2.apparait();
 
             // Affiche l'écran mis à jour
             StdDraw.show();
@@ -45,6 +69,7 @@ public class App {
         }
 
     }
+}
         
     
-}
+

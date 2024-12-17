@@ -2,7 +2,7 @@ package main;
 
 import static outils.Omnicient.*;
 import entites.Enemi;
-import entites.Tours;
+import entites.Tour;
 import logistic.InterfaceJoueur;
 import outils.StdDraw;
 
@@ -18,7 +18,7 @@ public class Jeux {
     }
 
     public static void BoucleappartionTours(){
-        for (Tours t : getPositionTours()) {
+        for (Tour t : getPositionTours()) {
             //t.apparait();
         }
     }

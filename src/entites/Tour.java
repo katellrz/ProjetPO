@@ -3,20 +3,23 @@ package entites;
 import static outils.Omnicient.*;
 
 import java.awt.Color;
-import java.awt.Point;
+import map.Point;
 
+import entites.Tours.Archer;
 import map.Case;
 import outils.StdDraw;
 
-public class Tours extends Entite {
-    private int Cost;
-    private Point position;
+public abstract class Tour extends Entite {
+    protected int Cost;
+    protected Point position;
+    protected int MaxPV;
 
     // Constructeur de la classe TOURS
-    public Tours(int PV, int ATK, double ATKSpeed, int Range, Element Element,int cost, Point Position) {
+    public Tour(int PV, int ATK, double ATKSpeed, int Range, Element Element,int cost, Point Position) {
         super(PV, ATK, ATKSpeed, Range, Element);
         this.position = position;
         this.Cost = cost;
+        this.MaxPV = PV;
     }
 
     // Getters et setters
@@ -28,11 +31,12 @@ public class Tours extends Entite {
         return position;
     }
 
-    public void PlacerTour(){
+    public static void PlacerTour(){
         for (Case[] c : getCarte()) {
             for (Case cs : c) {
                 if(cs.SourisClique()){
-                    
+                    Archer t = new Archer(12,1,1,1,Element.NONE,30,cs.getCenterCase());
+                    AddTour(t);
                 }                
             }
             
@@ -61,7 +65,7 @@ public class Tours extends Entite {
     }
 
     public abstract int getMaxPV();
-    
+
 
 
   
