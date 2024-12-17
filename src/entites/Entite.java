@@ -1,6 +1,8 @@
 package entites;
 //import map.Point;
 
+import java.awt.Color;
+
 public abstract class Entite {
 
     public enum Element{
@@ -78,5 +80,20 @@ public abstract class Entite {
 
     public void setIcone(String Icone) {
         this.Icone = Icone;
-    }   
+    }
+
+    protected Color getColorByElement(Element element) {
+        switch (element) {
+            case FIRE:
+                return new Color(184, 22, 1);
+            case EARTH:
+                return new Color(0, 167, 15);
+            case WATER:
+                return new Color(6, 0, 160);
+            case WIND:
+                return new Color(242, 211, 0);
+            default:
+                return Color.BLACK;
+        }
+    }
 }

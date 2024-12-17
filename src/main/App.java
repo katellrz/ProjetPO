@@ -1,15 +1,7 @@
 package main;
 import entites.Enemi;
 import logistic.InterfaceJoueur;
-import map.Carte;
-import map.Case;
-import map.Point;
-import outils.Omnicient;
 import outils.StdDraw;
-
-import static outils.Omnicient.*;
-
-import java.util.List;
 
 public class App {
 
