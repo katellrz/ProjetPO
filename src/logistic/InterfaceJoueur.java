@@ -36,7 +36,7 @@ public class InterfaceJoueur{
         
         ZoneBoutique();
 
-        Carte c1 = new Carte("10-3");
+        Carte c1 = new Carte("10-10");
 
         List<Case> huhu = c1.getChemin();
         SavetoOmni(huhu);        
