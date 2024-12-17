@@ -5,6 +5,7 @@ import static outils.Omnicient.SavetoOmni;
 import java.awt.Color;
 import java.util.List;
 
+import static main.Joueur.*;
 import map.Carte;
 import map.Case;
 import map.Point;
@@ -21,18 +22,6 @@ public class InterfaceJoueur{
         StdDraw.setXscale(-12, 1012);
         StdDraw.setYscale(-10, 710);
         StdDraw.enableDoubleBuffering();
-
-        
-
-        ZoneMap();
-        
-        ZoneLevel();
-        
-        ZonePlayer();
-        
-        ZoneBoutique();
-        
-
         StdDraw.show();
        
     }
@@ -50,16 +39,10 @@ public class InterfaceJoueur{
         Carte c1 = new Carte("10-3");
 
         List<Case> huhu = c1.getChemin();
-        SavetoOmni(huhu);
-
-        /* for (Case c : huhu) {
-            System.out.println("Case : "+ c.toString());
-        } */
-        
+        SavetoOmni(huhu);        
         
         c1.afficheCarte();;
         
-
         StdDraw.show() ;
     
     }
@@ -86,33 +69,17 @@ public class InterfaceJoueur{
 
         StdDraw.setPenColor(Color.BLACK);
         StdDraw.rectangle(center.getX(), center.getY(), halfDist.getX(), halfDist.getY());
-    }
 
-    public static void ZoneBoutique(){
-        Point center = new Point(856, 303);
-        Point halfDist = new Point(144, 303);
+        Point centerC = new Point(740,641);
+        int radius = 20;
 
-        StdDraw.setPenColor(Color.BLACK);
-        StdDraw.rectangle(center.getX(), center.getY(), halfDist.getX(), halfDist.getY());
-    }
-}
-    //Zone Map
-        
-
-
-    /* //Zone Level
-        StdDraw.setPenColor(Color.BLACK);
-        StdDraw.rectangle(center.getX(), center.getY(), halfDist.getX(), halfDist.getY());
-    
-    //Zone Player
-        
-        //tracer une pièce
         StdDraw.setPenColor(new Color(212, 175,55));
-        StdDraw.filledCircle(center.getX(), center.getY(), radius);
+        StdDraw.filledCircle(centerC.getX(), centerC.getY(), radius);
         StdDraw.setPenColor(new Color(192, 192,192));
-        StdDraw.filledCircle(center.getX(), center.getY(), 0.7 * radius);
+        StdDraw.filledCircle(centerC.getX(), centerC.getY(), 0.7 * radius);
 
-         // Draw a heart
+
+        int halfHeight = 20;
         StdDraw.setPenColor(new Color(223, 75, 95));
         double[] listX = new double[]
         {
@@ -141,7 +108,17 @@ public class InterfaceJoueur{
             center.getY(),
         };
         StdDraw.filledPolygon(listX, listY);
+
+        StdDraw.text(radius, halfHeight, Integer.toString(getPV()) );
+
+
     }
 
+    public static void ZoneBoutique(){
+        Point center = new Point(856, 303);
+        Point halfDist = new Point(144, 303);
+
+        StdDraw.setPenColor(Color.BLACK);
+        StdDraw.rectangle(center.getX(), center.getY(), halfDist.getX(), halfDist.getY());
+    }
 }
- */
