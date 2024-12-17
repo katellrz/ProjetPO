@@ -60,6 +60,9 @@ public class Tours extends Entite {
         StdDraw.rectangle(position.getX(), barY, barWidth / 2.0, barHeight / 2.0);
     }
 
+    public abstract int getMaxPV();
+    
+
 
   
 }
