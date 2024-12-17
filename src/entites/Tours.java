@@ -1,14 +1,17 @@
 package entites;
 
+import static outils.Omnicient.*;
+
 import java.awt.Point;
+
+import map.Case;
 
 public class Tours extends Entite {
     private int Cost;
 
     // Constructeur de la classe TOURS
-    public Tours(int PV, int ATK, double ATKSpeed, int Range, Element Element, Point Position, String Icone, int Cost) {
+    public Tours(int PV, int ATK, double ATKSpeed, int Range, Element Element, Point Position) {
         super(PV, ATK, ATKSpeed, Range, Element);
-        this.Cost = Cost;
     }
 
     // Getters et setters
@@ -16,7 +19,17 @@ public class Tours extends Entite {
         return Cost;
     }
 
-    public void setMoney(int Money) {
-        this.Cost = Money;
-    }    
+    public void PlacerTour(){
+        for (Case[] c : getCarte()) {
+            for (Case cs : c) {
+                if(cs.SourisClique()){
+                    AddTour(new Tours(1, 12, 1, 1, null, null));
+                }                
+            }
+            
+        }
+    }
+
+
+  
 }

@@ -13,10 +13,16 @@ public abstract class Omnicient {
     private static Case Spawn;
     private static Case Base;
     private static List<Case> Chemin;
+    private static Case[][] Carte;
+     
 
     
     public static void SavetoOmni(List<Case> chemin) {
         Chemin = chemin;
+    }
+
+    public static void SaveToOmni(Case[][] carte ){
+        Carte=carte;
     }
 
     public static void SavetoOmni(Enemi e) {
@@ -55,6 +61,20 @@ public abstract class Omnicient {
     public static List<Case> getChemin() {
         return Chemin;
     }
+
+    public static Case[][] getCarte(){
+        return Carte;
+    }
+
+    public static void AddTour(Tours tour){
+        positionTours.add(tour);
+    }
+
+    public static void AddEnemi(Enemi enemi){
+        positionMonstre.add(enemi);
+    }
+
+    
 
 
 

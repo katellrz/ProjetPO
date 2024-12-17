@@ -154,6 +154,17 @@ public class Case {
         return "Case [type=" + type + ", couleur=" + couleur + ", rows=" + rows + ", cols=" + cols + " position "+centre.toString()+"]";
     }
 
+    public boolean SourisCliqueCase(double size){
+        if(StdDraw.isMousePressed()&& StdDraw.mouseX() > centre.getX() - size / 2.0 && StdDraw.mouseX() < centre.getX() + size / 2.0 && StdDraw.mouseY() > centre.getY() - size / 2.0 && StdDraw.mouseY() < centre.getY() + size / 2.0){
+            return true;
+        }
+        return false;
+    }
+
+
+
+
+
     
     
 }
