@@ -30,34 +30,53 @@ public class App {
         AddEnemi(monstre);
              
 
-        // Animation du déplacement
-        while (true) {
-            
-            // Efface l'écran avant de redessiner
-            StdDraw.clear();
+        boolean mousePressed = false; // Indique si la souris est actuellement pressée
 
-            i1.AfficheDynamique ();
-            
-            // Déplace le monstre
-            for (Enemi m : getPositionMonstre()) {
-                m.avance();
-                m.apparait();
-            }
+while (true) {
+    StdDraw.clear();
+    i1.AfficheDynamique();
 
-            // Détection du clic et ajout de tour
-            Case clickedCase = detectCaseClick();
-            if (clickedCase != null && clickedCase.getType() == Casetype.CONSTRUCTIBLE) {
-                // Vérifier si aucune tour n'est déjà sur cette case
+    // Déplacement des ennemis
+    for (Enemi m : getPositionMonstre()) {
+        m.avance();
+        m.apparait();
+    }
+
+    // Détection d'un clic unique
+    if (StdDraw.isMousePressed() && !mousePressed) { // Uniquement si clic commence
+        mousePressed = true; // Mémorise que la souris est pressée
+        Case clickedCase = Detection.detectCaseClick();
+
+        if (clickedCase != null) {
+            System.out.println("Case cliquée : " + clickedCase + ", Type : " + clickedCase.getType());
+            if (clickedCase.getType() == Casetype.CONSTRUCTIBLE) {
                 boolean caseOccupied = getPositionTours().stream()
                     .anyMatch(t -> t.getPosition().equals(clickedCase.getCenterCase()));
 
                 if (!caseOccupied) {
-                    // Ajouter une nouvelle tour (exemple : Archer)
+                    // Ajouter une tour sur la case
                     Tour newTour = new Archer(1, 1, 1, 1, Element.NONE, 3, clickedCase.getCenterCase());
                     AddTour(newTour);
                     System.out.println("Tour ajoutée à la case : " + clickedCase);
+                } else {
+                    System.out.println("Case déjà occupée !");
                 }
-            }        
+            } else {
+                System.out.println("Case non constructible !");
+            }
+        }
+    } else if (!StdDraw.isMousePressed()) {
+        mousePressed = false; // Réinitialise l'état quand la souris est relâchée
+    }
+
+    // Affichage des tours
+    for (Tour t : getPositionTours()) {
+        t.afficheTour(getSize());
+    }
+
+    StdDraw.show();
+    StdDraw.pause(50);
+} 
             
         
 

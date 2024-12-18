@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import logistic.FileExtraction;
+import map.Case.Casetype;
 import outils.StdDraw;
 
 public class Carte {

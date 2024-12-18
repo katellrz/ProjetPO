@@ -155,9 +155,16 @@ public class Case {
         return "Case [type=" + type + ", couleur=" + couleur + ", rows=" + rows + ", cols=" + cols + " position "+centre.toString()+"]";
     }
 
-    public boolean SourisCliqueCase(double size){
-        if(StdDraw.isMousePressed()&& StdDraw.mouseX() > centre.getX() - size / 2.0 && StdDraw.mouseX() < centre.getX() + size / 2.0 && StdDraw.mouseY() > centre.getY() - size / 2.0 && StdDraw.mouseY() < centre.getY() + size / 2.0){
-            return true;
+    public boolean SourisCliqueCase(double size) {
+        if (StdDraw.isMousePressed()) { // Détecte un clic
+            double mouseX = StdDraw.mouseX(); // Récupère la position X de la souris
+            double mouseY = StdDraw.mouseY(); // Récupère la position Y de la souris
+            // Vérifie si la souris est dans les limites de cette case
+            System.out.println("Clic détecté sur la case : " + this.toString());
+            return mouseX > this.centre.getX() - size / 2.0 && 
+                   mouseX < this.centre.getX() + size / 2.0 &&
+                   mouseY > this.centre.getY() - size / 2.0 &&
+                   mouseY < this.centre.getY() + size / 2.0;
         }
         return false;
     }
