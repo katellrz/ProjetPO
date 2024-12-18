@@ -41,23 +41,16 @@ public class App {
                 m.apparait();
             }
 
-            for (Case[] c : getCarte()) {
-                for (Case cs : c) {
-                    if(cs.SourisClique()){
-                        Archer t = new Archer(12,1,1,1,Element.NONE,30,cs.getCenterCase());
-                        AddTour(t);
-                        System.out.println("Tour créé et ajouter, Position = "+cs.getCenterCase().toString());
 
-                    }                
-                }
-            }
+
+            
             
         
 
-            for (Tour t : getPositionTours()) {
+/*             for (Tour t : getPositionTours()) {
                 System.out.println("affiche tour ");
                 t.afficheTour(getSize());
-            }
+            } */
 
             // Dessine le monstre
 

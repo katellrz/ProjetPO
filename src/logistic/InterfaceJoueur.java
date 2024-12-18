@@ -4,7 +4,10 @@ import static outils.Omnicient.SaveToOmni;
 import static outils.Omnicient.SavetoOmni;
 
 import java.awt.Color;
+import java.awt.Font;
 import java.util.List;
+
+import main.Joueur;
 
 import static main.Joueur.*;
 import map.Carte;
@@ -12,8 +15,6 @@ import map.Case;
 import map.Point;
 import outils.StdDraw;
 public class InterfaceJoueur{
-
-    
 
 
 
@@ -28,13 +29,9 @@ public class InterfaceJoueur{
     }
     
     public void AfficheDynamique(){
-
         ZoneMap();
-        
         ZoneLevel();
-        
         ZonePlayer();
-        
         ZoneBoutique();
 
         Carte c1 = new Carte("10-10");
@@ -114,7 +111,22 @@ public class InterfaceJoueur{
         StdDraw.text(radius, halfHeight, Integer.toString(getPV()) );
 
 
+        i.afficheInfoJoueur();
     }
+
+    public  void afficheInfoJoueur() {
+		StdDraw.setPenColor(Color.WHITE);
+		StdDraw.filledRectangle(857, 638, 94, 20);
+		Point centerPVBase = new Point(925, 638);
+		StdDraw.setPenColor(new Color(223, 75, 95));
+		StdDraw.setFont(new Font("Serif", Font.PLAIN, 30));
+		StdDraw.text(centerPVBase.getX(), centerPVBase.getY(), Integer.toString(getPV()));
+		StdDraw.show();
+		Point centerPiece = new Point(799, 638);
+		StdDraw.setPenColor(new Color(212, 175, 55));
+		StdDraw.text(centerPiece.getX(), centerPiece.getY(), Integer.toString(getMoney()));
+		StdDraw.show();
+	}
 
     public static void ZoneBoutique(){
         Point center = new Point(856, 303);
