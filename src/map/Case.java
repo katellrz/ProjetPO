@@ -3,9 +3,10 @@ import java.awt.Color;
 
 import outils.StdDraw;
 
-enum Casetype {DECOR, CONSTRUCTIBLE, ROUTE, BASE, SPAWN}
 
 public class Case {
+
+    public enum Casetype {DECOR, CONSTRUCTIBLE, ROUTE, BASE, SPAWN}
 
     protected Casetype type;
     protected Color couleur;

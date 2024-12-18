@@ -1,6 +1,8 @@
 package main;
 import static outils.Omnicient.*;
 
+import java.lang.annotation.ElementType;
+
 import entites.Enemi;
 import entites.Entite.Element;
 import entites.Tour;
@@ -8,6 +10,8 @@ import entites.Tours.Archer;
 import logistic.InterfaceJoueur;
 import map.Case;
 import outils.StdDraw;
+import main.Detection.*;
+import map.Case.Casetype;
 
 public class App {
 
@@ -24,8 +28,7 @@ public class App {
         // Initialise un monstre
         Enemi monstre = new Enemi(12, 3, 1, 0, null, 6, 0);
         AddEnemi(monstre);
-
-               
+             
 
         // Animation du déplacement
         while (true) {
@@ -41,9 +44,20 @@ public class App {
                 m.apparait();
             }
 
+            // Détection du clic et ajout de tour
+            Case clickedCase = detectCaseClick();
+            if (clickedCase != null && clickedCase.getType() == Casetype.CONSTRUCTIBLE) {
+                // Vérifier si aucune tour n'est déjà sur cette case
+                boolean caseOccupied = getPositionTours().stream()
+                    .anyMatch(t -> t.getPosition().equals(clickedCase.getCenterCase()));
 
-
-            
+                if (!caseOccupied) {
+                    // Ajouter une nouvelle tour (exemple : Archer)
+                    Tour newTour = new Archer(1, 1, 1, 1, Element.NONE, 3, clickedCase.getCenterCase());
+                    AddTour(newTour);
+                    System.out.println("Tour ajoutée à la case : " + clickedCase);
+                }
+            }        
             
         
 
