@@ -14,7 +14,7 @@ public abstract class Detection {
     public static Case detectCaseClick() {
         for (int i = 0; i < getCarte().length; i++) {
             for (int j = 0; j < getCarte()[i].length; j++) {
-                if (getCarte()[i][j].SourisCliqueCase(getSize())) {
+                if (getCarte()[i][j].SourisCliqueCase()) {
                     return getCarte()[i][j];
                 }
             }

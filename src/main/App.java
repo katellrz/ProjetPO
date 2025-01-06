@@ -76,7 +76,7 @@ while (true) {
 
     StdDraw.show();
     StdDraw.pause(50);
-} 
+    }}}
             
         
 
@@ -84,18 +84,5 @@ while (true) {
                 System.out.println("affiche tour ");
                 t.afficheTour(getSize());
             } */
-
-            // Dessine le monstre
-
-            // Affiche l'écran mis à jour
-            StdDraw.show();
-
-            // Pause pour ralentir l'animation
-            StdDraw.pause(50);
-        }
-
-    }
-}
-        
     
 

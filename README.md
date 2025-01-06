@@ -1,18 +1,7 @@
-## Getting Started
+Ce projet a été réaliser par KAtell Razé 
+Le jeux est normalement fonctionnel du debut a la fin et des bonus on été apporter (nouvelle tours fonctionnelle & susteme de reprise des niveau)
 
-Welcome to the VS Code Java world. Here is a guideline to help you get started to write Java code in Visual Studio Code.
+pour lancer le jeux il faut Run la class App
 
-## Folder Structure
+L'Ia n'a que tres peutété utiliser pour ce projet (lorsque j'était bloquer ou pour faire face a mes difficulter generalemnt preciser dans la java doc ), et pour debeuger lorsque les methodes habituelle ne suffisait pas
 
-The workspace contains two folders by default, where:
-
-- `src`: the folder to maintain sources
-- `lib`: the folder to maintain dependencies
-
-Meanwhile, the compiled output files will be generated in the `bin` folder by default.
-
-> If you want to customize the folder structure, open `.vscode/settings.json` and update the related settings there.
-
-## Dependency Management
-
-The `JAVA PROJECTS` view allows you to manage your dependencies. More details can be found [here](https://github.com/microsoft/vscode-java-dependency#manage-dependencies).

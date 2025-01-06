@@ -111,7 +111,7 @@ public class InterfaceJoueur{
         StdDraw.text(radius, halfHeight, Integer.toString(getPV()) );
 
 
-        //i.afficheInfoJoueur();
+        
     }
 
     public  void afficheInfoJoueur() {

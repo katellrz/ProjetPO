@@ -1,4 +1,6 @@
 package map;
+import static outils.Omnicient.getSize;
+
 import java.awt.Color;
 
 import outils.StdDraw;
@@ -112,59 +114,53 @@ public class Case {
     }
 
     /**
-     * Cette fontion permet d'afficher chaque case indépendament 
+     * Cette fontion permet d'afficher chaque case indépendament si la case est cliquer alors la cose devien jaune 
      * @param size correspond a 
      * @return un parmatre de type Color 
      */
     public void afficheCase(double size){
-
-        boolean Sourissurvole = Sourissurvole(this.centre.getX(), this.centre.getY(), size);
-
-
         Color couleur = this.couleur;//couleur de base 
 
-        if(Sourissurvole&&SourisClique()) couleur = Color.YELLOW;//Si la case est cliquer
+        if(SourisCliqueCase()) couleur = Color.YELLOW;//Si la case est cliquer
         //dessin de la case
         StdDraw.setPenColor(couleur);
         StdDraw.filledSquare(this.centre.getX(), this.centre.getY(), size / 2.0);
 
         
 
-        //dessine le tour de la case et en couleur si cliquer
-        if(Sourissurvole) couleur = Color.YELLOW;
-        else couleur = Color.BLACK;
+        //dessine le tour de la case et en couleur si clique
+        couleur = Color.BLACK;
         StdDraw.setPenColor(couleur);
         StdDraw.square(this.centre.getX(), this.centre.getY(), size / 2.0);
     }
 
 
     // Vérifier si la souris est au-dessus de cette case
-    public boolean Sourissurvole(double CentreX, double CentreY, double size) {
+    /* public boolean Sourissurvole(double CentreX, double CentreY, double size) {
         return StdDraw.mouseX() > CentreX - size / 2.0 && StdDraw.mouseX() < CentreX + size / 2.0 && StdDraw.mouseY() > CentreY - size / 2.0 && StdDraw.mouseY() < CentreY + size / 2.0;
-    }
-
-    public boolean SourisClique(){
-        if(StdDraw.isMousePressed()){
-            return true;
-        }
-        return false;
-    }
+    } */
 
     @Override
     public String toString() {
         return "Case [type=" + type + ", couleur=" + couleur + ", rows=" + rows + ", cols=" + cols + " position "+centre.toString()+"]";
     }
 
-    public boolean SourisCliqueCase(double size) {
+
+    /**
+     * Pour une case dit si la souris clique dans cette case 
+     * 
+     * @return true ou flase 
+     */
+    public boolean SourisCliqueCase() {
         if (StdDraw.isMousePressed()) { // Détecte un clic
             double mouseX = StdDraw.mouseX(); // Récupère la position X de la souris
             double mouseY = StdDraw.mouseY(); // Récupère la position Y de la souris
             // Vérifie si la souris est dans les limites de cette case
             System.out.println("Clic détecté sur la case : " + this.toString());
-            return mouseX > this.centre.getX() - size / 2.0 && 
-                   mouseX < this.centre.getX() + size / 2.0 &&
-                   mouseY > this.centre.getY() - size / 2.0 &&
-                   mouseY < this.centre.getY() + size / 2.0;
+            return mouseX > this.centre.getX() - getSize() / 2.0 && 
+                   mouseX < this.centre.getX() + getSize() / 2.0 &&
+                   mouseY > this.centre.getY() - getSize() / 2.0 &&
+                   mouseY < this.centre.getY() + getSize() / 2.0;
         }
         return false;
     }
